@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест: Git и ветки</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-wrapper">
+        <div class="quiz-header">
+            <h1>🌿 Git Ветки: Проверка знаний</h1>
+            <p class="description">Ответь на 10 вопросов. Выбери один правильный вариант.</p>
+        </div>
+
+        <form id="gitQuiz">
+            <!-- 1 -->
+            <div class="question-card">
+                <h3>1. Какая команда создаёт новую ветку?</h3>
+                <label><input type="radio" name="q1" value="a"> git checkout new-branch</label>
+                <label><input type="radio" name="q1" value="b"> git branch new-branch</label>
+                <label><input type="radio" name="q1" value="c"> git create-branch new-branch</label>
+            </div>
+
+            <!-- 2 -->
+            <div class="question-card">
+                <h3>2. Как переключиться на ветку `develop`?</h3>
+                <label><input type="radio" name="q2" value="a"> git switch develop</label>
+                <label><input type="radio" name="q2" value="b"> git start develop</label>
+                <label><input type="radio" name="q2" value="c"> git change develop</label>
+            </div>
+
+            <!-- 3 -->
+            <div class="question-card">
+                <h3>3. Как посмотреть список всех веток?</h3>
+                <label><input type="radio" name="q3" value="a"> git list</label>
+                <label><input type="radio" name="q3" value="b"> git branches</label>
+                <label><input type="radio" name="q3" value="c"> git branch</label>
+            </div>
+
+            <!-- 4 -->
+            <div class="question-card">
+                <h3>4. Что делает `git merge feature`?</h3>
+                <label><input type="radio" name="q4" value="a"> Сливает ветку `feature` в текущую</label>
+                <label><input type="radio" name="q4" value="b"> Удаляет ветку `feature`</label>
+                <label><input type="radio" name="q4" value="c"> Создаёт копию ветки `feature`</label>
+            </div>
+
+            <!-- 5 -->
+            <div class="question-card">
+                <h3>5. Как удалить ветку `old-feature`?</h3>
+                <label><input type="radio" name="q5" value="a"> git delete old-feature</label>
+                <label><input type="radio" name="q5" value="b"> git branch -d old-feature</label>
+                <label><input type="radio" name="q5" value="c"> git remove old-feature</label>
+            </div>
+
+            <!-- 6 -->
+            <div class="question-card">
+                <h3>6. Какая ветка считается основной по умолчанию?</h3>
+                <label><input type="radio" name="q6" value="a"> master/main</label>
+                <label><input type="radio" name="q6" value="b"> primary</label>
+                <label><input type="radio" name="q6" value="c"> root</label>
+            </div>
+
+            <!-- 7 -->
+            <div class="question-card">
+                <h3>7. Как переименовать текущую ветку в `new-name`?</h3>
+                <label><input type="radio" name="q7" value="a"> git branch -m new-name</label>
+                <label><input type="radio" name="q7" value="b"> git rename new-name</label>
+                <label><input type="radio" name="q7" value="c"> git branch --rename new-name</label>
+            </div>
+
+            <!-- 8 -->
+            <div class="question-card">
+                <h3>8. Что покажет `git branch -a`?</h3>
+                <label><input type="radio" name="q8" value="a"> Только удалённые ветки</label>
+                <label><input type="radio" name="q8" value="b"> Все локальные и удалённые ветки</label>
+                <label><input type="radio" name="q8" value="c"> Текущую ветку</label>
+            </div>
+
+            <!-- 9 -->
+            <div class="question-card">
+                <h3>9. Как отправить новую ветку на GitHub?</h3>
+                <label><input type="radio" name="q9" value="a"> git push origin new-branch</label>
+                <label><input type="radio" name="q9" value="b"> git upload new-branch</label>
+                <label><input type="radio" name="q9" value="c"> git send new-branch</label>
+            </div>
+
+            <!-- 10 -->
+            <div class="question-card">
+                <h3>10. Что такое `git checkout -b hotfix`?</h3>
+                <label><input type="radio" name="q10" value="a"> Создаёт ветку `hotfix` и переключается на неё</label>
+                <label><input type="radio" name="q10" value="b"> Удаляет ветку `hotfix`</label>
+                <label><input type="radio" name="q10" value="c"> Переключается на существующую ветку `hotfix`</label>
+            </div>
+
+            <button type="button" id="submitBtn">✅ Проверить ответы</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            // Правильные ответы
+            const answers = {
+                q1: 'b',
+                q2: 'a',
+                q3: 'c',
+                q4: 'a',
+                q5: 'b',
+                q6: 'a',
+                q7: 'a',
+                q8: 'b',
+                q9: 'a',
+                q10: 'a'
+            };
+
+            let score = 0;
+            let total = Object.keys(answers).length;
+
+            for (let q in answers) {
+                let radios = document.getElementsByName(q);
+                for (let radio of radios) {
+                    if (radio.checked && radio.value === answers[q]) {
+                        score++;
+                    }
+                }
+            }
+
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <div class="result-box">
+                    <h2>Результат: ${score} / ${total}</h2>
+                    <p>${score === total ? '🌟 Отлично! Ты мастер ветвления!' :
+                       score >= 7 ? '👍 Хорошо, но есть пробелы.' :
+                       '📘 Почитай документацию Git.'}</p>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
